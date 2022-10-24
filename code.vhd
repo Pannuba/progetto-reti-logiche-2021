@@ -23,21 +23,21 @@ architecture Behavioral of project_reti_logiche is
 						read_pixel, find_max_min_pixel, calculate_delta_value, calculate_log_value,
 						calculate_shift_level, calculate_temp_pixel, calculate_new_pixel, write_pixel, done);
 
-	signal next_state, current_state:				state_type				:= idle;
-	signal read_address, next_read_address:			unsigned(15 downto 0)	:= "0000000000000001";
-	signal write_address, next_write_address:		unsigned(15 downto 0)	:= "0000000000000000";
-	signal width, next_width:						unsigned(7 downto 0)	:= "00000000";
-	signal height, next_height:						unsigned(7 downto 0)	:= "00000000";
-	signal total_pixels, next_total_pixels:			unsigned(15 downto 0)	:= "0000000000000000";
-	signal current_pixel, next_current_pixel:		unsigned(7 downto 0)	:= "00000000";
-	signal min_pixel, next_min_pixel:				unsigned(7 downto 0)	:= "11111111";
-	signal max_pixel, next_max_pixel:				unsigned(7 downto 0)	:= "00000000";
-	signal temp_pixel, next_temp_pixel:				unsigned(15 downto 0)	:= "0000000000000000";
-	signal new_pixel, next_new_pixel:				unsigned(7 downto 0)	:= "00000000";
-	signal log_value, next_log_value:				unsigned(3 downto 0)	:= "0000";
-	signal delta_value, next_delta_value:			unsigned(7 downto 0)	:= "00000000";
-	signal shift_level, next_shift_level:			unsigned(4 downto 0)	:= "00000";
-	signal first_scan_done, next_first_scan_done:	std_logic				:= '0';
+	signal next_state, current_state:               state_type              := idle;
+	signal read_address, next_read_address:         unsigned(15 downto 0)   := "0000000000000001";
+	signal write_address, next_write_address:       unsigned(15 downto 0)   := "0000000000000000";
+	signal width, next_width:                       unsigned(7 downto 0)    := "00000000";
+	signal height, next_height:                     unsigned(7 downto 0)    := "00000000";
+	signal total_pixels, next_total_pixels:         unsigned(15 downto 0)   := "0000000000000000";
+	signal current_pixel, next_current_pixel:       unsigned(7 downto 0)    := "00000000";
+	signal min_pixel, next_min_pixel:               unsigned(7 downto 0)    := "11111111";
+	signal max_pixel, next_max_pixel:               unsigned(7 downto 0)    := "00000000";
+	signal temp_pixel, next_temp_pixel:             unsigned(15 downto 0)   := "0000000000000000";
+	signal new_pixel, next_new_pixel:               unsigned(7 downto 0)    := "00000000";
+	signal log_value, next_log_value:               unsigned(3 downto 0)    := "0000";
+	signal delta_value, next_delta_value:           unsigned(7 downto 0)    := "00000000";
+	signal shift_level, next_shift_level:           unsigned(4 downto 0)    := "00000";
+	signal first_scan_done, next_first_scan_done:   std_logic               := '0';
 
 begin
 
@@ -47,21 +47,21 @@ begin
 			current_state <= idle;
 
 		elsif rising_edge(i_clk) then
-			current_state		<= next_state;
-			read_address		<= next_read_address;
-			write_address		<= next_write_address;
-			width				<= next_width;
-			height				<= next_height;
-			total_pixels		<= next_total_pixels;
-			current_pixel		<= next_current_pixel;
-			min_pixel			<= next_min_pixel;
-			max_pixel			<= next_max_pixel;
-			temp_pixel			<= next_temp_pixel;
-			new_pixel			<= next_new_pixel;
-			log_value			<= next_log_value;
-			delta_value			<= next_delta_value;
-			shift_level			<= next_shift_level;
-			first_scan_done		<= next_first_scan_done;
+			current_state       <= next_state;
+			read_address        <= next_read_address;
+			write_address       <= next_write_address;
+			width               <= next_width;
+			height              <= next_height;
+			total_pixels        <= next_total_pixels;
+			current_pixel       <= next_current_pixel;
+			min_pixel           <= next_min_pixel;
+			max_pixel           <= next_max_pixel;
+			temp_pixel          <= next_temp_pixel;
+			new_pixel           <= next_new_pixel;
+			log_value           <= next_log_value;
+			delta_value         <= next_delta_value;
+			shift_level         <= next_shift_level;
+			first_scan_done     <= next_first_scan_done;
 		end if;
 	end process;
 
@@ -69,21 +69,21 @@ begin
 							width, height, total_pixels, current_pixel, min_pixel, max_pixel, new_pixel, log_value,
 							temp_pixel, delta_value, shift_level)
 	begin
-		next_state				<= current_state;
-		next_read_address		<= read_address;
-		next_write_address		<= write_address;
-		next_width				<= width;
-		next_height				<= height;
-		next_total_pixels		<= total_pixels;
-		next_current_pixel		<= current_pixel;
-		next_min_pixel			<= min_pixel;
-		next_max_pixel			<= max_pixel;
-		next_temp_pixel			<= temp_pixel;
-		next_new_pixel			<= new_pixel;
-		next_log_value			<= log_value;
-		next_delta_value		<= delta_value;
-		next_shift_level		<= shift_level;
-		next_first_scan_done	<= first_scan_done;
+		next_state              <= current_state;
+		next_read_address       <= read_address;
+		next_write_address      <= write_address;
+		next_width              <= width;
+		next_height             <= height;
+		next_total_pixels       <= total_pixels;
+		next_current_pixel      <= current_pixel;
+		next_min_pixel          <= min_pixel;
+		next_max_pixel          <= max_pixel;
+		next_temp_pixel         <= temp_pixel;
+		next_new_pixel          <= new_pixel;
+		next_log_value          <= log_value;
+		next_delta_value        <= delta_value;
+		next_shift_level        <= shift_level;
+		next_first_scan_done    <= first_scan_done;
 
 		o_done <= '0';
 		o_en <= '0';
@@ -166,15 +166,15 @@ begin
 
 			when calculate_log_value =>
 
-				if	   delta_value =  "00000000"									then next_log_value <= "0000";
-				elsif (delta_value >= "00000001") and (delta_value <= "00000010")	then next_log_value <= "0001";
-				elsif (delta_value >= "00000011") and (delta_value <= "00000110")	then next_log_value <= "0010";
-				elsif (delta_value >= "00000111") and (delta_value <= "00001110")	then next_log_value <= "0011";
-				elsif (delta_value >= "00001111") and (delta_value <= "00011110")	then next_log_value <= "0100";
-				elsif (delta_value >= "00011111") and (delta_value <= "00111110")	then next_log_value <= "0101";
-				elsif (delta_value >= "00111111") and (delta_value <= "01111110")	then next_log_value <= "0110";
-				elsif (delta_value >= "01111111") and (delta_value <= "11111110")	then next_log_value <= "0111";
-				elsif  delta_value =  "11111111"									then next_log_value <= "1000";
+				if     delta_value =  "00000000"                                    then next_log_value <= "0000";
+				elsif (delta_value >= "00000001") and (delta_value <= "00000010")   then next_log_value <= "0001";
+				elsif (delta_value >= "00000011") and (delta_value <= "00000110")   then next_log_value <= "0010";
+				elsif (delta_value >= "00000111") and (delta_value <= "00001110")   then next_log_value <= "0011";
+				elsif (delta_value >= "00001111") and (delta_value <= "00011110")   then next_log_value <= "0100";
+				elsif (delta_value >= "00011111") and (delta_value <= "00111110")   then next_log_value <= "0101";
+				elsif (delta_value >= "00111111") and (delta_value <= "01111110")   then next_log_value <= "0110";
+				elsif (delta_value >= "01111111") and (delta_value <= "11111110")   then next_log_value <= "0111";
+				elsif  delta_value =  "11111111"                                    then next_log_value <= "1000";
 				end if;
 
 				next_state <= calculate_shift_level;
